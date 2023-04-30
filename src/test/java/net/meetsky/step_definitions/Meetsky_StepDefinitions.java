@@ -351,7 +351,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user click the top-left checkbox of the table")
     public void user_click_the_top_left_checkbox_of_the_table() {
-        filesPage.selectAllFilesBox.click();
+        filesPage.addIcon.click();
 
     }
     @Then("verify all the files are selected")
