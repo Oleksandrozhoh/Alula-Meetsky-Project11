@@ -12,8 +12,10 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -25,6 +27,8 @@ public class Meetsky_StepDefinitions {
 
     String lastFileName;
     String removedFileName;
+
+    LocalDateTime dt = LocalDateTime.now();
 
     @Given("user on the login page")
     public void user_on_the_login_page() {
@@ -156,7 +160,7 @@ public class Meetsky_StepDefinitions {
     public void the_user_uploads_a_file_with_the_upload_file_option() {
         // Using JS to click
         ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", filesPage.uploadFileButton);
-        filesPage.uploadFile(ConfigurationReader.getProperty("filePath"));
+        filesPage.uploadFile(""+System.getProperty("user.dir")+"\\src\\test\\resources\\435.jpg");
     }
 
     @Then("Verify the file is displayed on the page")
@@ -319,7 +323,7 @@ public class Meetsky_StepDefinitions {
 
     @When("user write a folder name")
     public void user_write_a_folder_name() {
-        filesPage.inputNewFolder.sendKeys("Saja Folder");
+        filesPage.inputNewFolder.sendKeys("Saja Folder "+ dt);
         BrowserUtils.sleep(2);
     }
 

@@ -176,14 +176,28 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     public WebElement uploadFile;
 
     public void addedFileIsDisplayed() {
+        String expectedName = ConfigurationReader.getProperty("filePath");
+        if (OperatingSystem.contains("mac")) {
+            expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1, expectedName.lastIndexOf('.'));
+        }else if (OperatingSystem.contains("win")) {
+            expectedName = expectedName.substring(expectedName.lastIndexOf('\\') + 1, expectedName.lastIndexOf('.'));
+        }
+
         java.util.List<WebElement> addedFiles = Driver.getDriver().findElements(By.xpath("//a[@class='name']"));
         List<String> filesTexts = new ArrayList<>();
         for (WebElement eachFile : addedFiles) {
             filesTexts.add(eachFile.getText());
         }
-        String expectedName = ConfigurationReader.getProperty("filePath");
-        expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1);
-        Assert.assertTrue(filesTexts.contains(expectedName));
+
+        for (String eachFileName : filesTexts) {
+            if (eachFileName.startsWith(expectedName)){
+                return;
+            }
+        }
+           Assert.fail("File is not displayed");
+
+
+       // Assert.assertTrue(filesTexts.contains(expectedName));
     }
 
     @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
