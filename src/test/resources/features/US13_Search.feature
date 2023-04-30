@@ -1,4 +1,4 @@
-@US13-LF @regression
+@US13-LF @smoke
 Feature: Search functionality
   US13: As a user, I should be able to search any item/ users from the homepage.
 

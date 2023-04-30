@@ -1,4 +1,4 @@
-@regression
+@smoke
 Feature: As a user, I should be accessing all the main modules of the app.
   User Story: US03 As a user, I should be accessing all the main modules of the app.
 

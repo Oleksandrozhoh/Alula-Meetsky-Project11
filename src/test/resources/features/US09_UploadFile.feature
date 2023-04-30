@@ -1,4 +1,4 @@
-@hamid @regression
+@smoke
 Feature: As a user, I should be able to upload files to existing folders on the Files page.
 
   Scenario:  Verify users can upload a file to an existing folder.

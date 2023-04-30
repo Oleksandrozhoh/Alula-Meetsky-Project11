@@ -48,7 +48,7 @@ public class Driver {
                 case "remote-chrome":
                     try { // to permanently handle checked exception cause by URL instance
                         // Step 1 - Create an instance of the URL class and provide the IP of the hub at the remote server
-                        String ipAddress = "54.172.98.158"; /** Make sure to change the IP address with yours */
+                        String ipAddress = "3.82.138.34"; /** Make sure to change the IP address with yours */
                         URL url = new URL("http://" + ipAddress + ":4444/wd/hub");
                         // Step 2 - Create an instance of the DesiredCapabilities class to choose browser type, platform etc. at the remote server
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();

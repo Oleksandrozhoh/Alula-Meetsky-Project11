@@ -1,4 +1,4 @@
-@alex @regression
+@smoke
 Feature: Favorites functionality
   User story:
   As a user, I should be able to add and remove files/folders to/from favorites

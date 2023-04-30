@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
 
         features = "@target/rerun.txt",
+
         glue = "net/meetsky/step_definitions"
 
 )

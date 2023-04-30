@@ -179,22 +179,30 @@ public class FilesPage extends BasePage implements ElementDisplayed {
     public WebElement uploadFile;
 
     public void addedFileIsDisplayed() {
+        String expectedName = ConfigurationReader.getProperty("filePath");
+        if (OperatingSystem.contains("mac")) {
+            expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1, expectedName.lastIndexOf('.'));
+        }else if (OperatingSystem.contains("win")) {
+            expectedName = expectedName.substring(expectedName.lastIndexOf('\\') + 1, expectedName.lastIndexOf('.'));
+        }
 
-        List<WebElement> addedFiles = Driver.getDriver().findElements(By.xpath("//a[@class='name']//span[@class='innernametext']"));
-
+        java.util.List<WebElement> addedFiles = Driver.getDriver().findElements(By.xpath("//a[@class='name']"));
         List<String> filesTexts = new ArrayList<>();
         for (WebElement eachFile : addedFiles) {
             filesTexts.add(eachFile.getText());
         }
 
-        String expectedName = ConfigurationReader.getProperty("filePath");
-        if (OperatingSystem.contains("mac")) {
-            expectedName = expectedName.substring(expectedName.lastIndexOf('/') + 1, expectedName.lastIndexOf('.'));
-        } else {
-            expectedName = expectedName.substring(expectedName.lastIndexOf('"') + 1, expectedName.lastIndexOf('.'));
+        for (String eachFileName : filesTexts) {
+            if (eachFileName.startsWith(expectedName)){
+                return;
+            }
         }
-        Assert.assertTrue(filesTexts.contains(expectedName));
+           Assert.fail("File is not displayed");
+
+
+       // Assert.assertTrue(filesTexts.contains(expectedName));
     }
+
     @FindBy(xpath = "//span[contains(@class, 'extra-data')]")
     public List<WebElement> allDeletedFilesFoldersList;
 
@@ -225,9 +233,6 @@ public class FilesPage extends BasePage implements ElementDisplayed {
 
     @FindBy(xpath = "//label[@for='select_all_files']/..")
     public WebElement SelectFiles;
-
-    @FindBy(id="headerSelection")
-    public WebElement selectAllFilesBox;
 
     public void checkCommentIsDisplayed(String theComment) {
         WebElement commentWE = Driver.getDriver().findElement(By.xpath("//div[normalize-space()='" + theComment + "']"));

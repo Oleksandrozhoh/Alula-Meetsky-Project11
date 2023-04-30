@@ -1,4 +1,4 @@
-@sohaila @regression
+@smoke
 Feature: As a user, I should be able to delete a file/folder.
 
   Background:
