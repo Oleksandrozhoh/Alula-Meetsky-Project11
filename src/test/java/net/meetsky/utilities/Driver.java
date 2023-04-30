@@ -32,8 +32,14 @@ public class Driver {
 
             switch (browserType.toLowerCase()) {
                 case "chrome":
+                    /*
+                    We need t create an instance of the ChromeOptions class to set up the configuration details for the
+                    current driver session such as headless mode, start maximized or allow remote
+                     */
                     ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--remote-allow-origins=*");
+                    options.addArguments("--remote-allow-origins=*"); // configuration adjustment after recent updates to Chrome
+                    //options.addArguments("--headless"); // to execute test in headless mode
+                    options.addArguments("start-maximized"); // to open browser with maximized window
                     driverPool.set(new ChromeDriver(options));
                     break;
                 case "firefox":
@@ -53,7 +59,7 @@ public class Driver {
                         e.printStackTrace();
                     }
             }
-            driverPool.get().manage().window().maximize();
+            //driverPool.get().manage().window().maximize();
             driverPool.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         }
         return driverPool.get();

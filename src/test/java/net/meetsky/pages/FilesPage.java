@@ -133,15 +133,18 @@ public class FilesPage extends BasePage implements ElementDisplayed {
             robot.keyRelease(KeyEvent.VK_V); // release V
             robot.keyPress(KeyEvent.VK_ENTER); //Press ENTER
             robot.keyRelease(KeyEvent.VK_ENTER); //Release ENTER
-
-            // to handle file duplicate html pop-up
-            try {
-                newFilesCheckbox.click();
-                continueButton.click();
-            } catch (RuntimeException e) {
-            }
+            clickToApproveNewFilePopup();
         }
     } // by using Robot class
+
+    public void clickToApproveNewFilePopup() {
+        // to handle file duplicate html pop-up
+        try {
+            newFilesCheckbox.click();
+            continueButton.click();
+        } catch (RuntimeException e) {
+        }
+    }
 
     /**
      * This method will take a file path as argument and check if it is displayed on the web page.

@@ -223,12 +223,15 @@ public class Meetsky_StepDefinitions {
     @When("users uploads file with the Upload file option")
     public void users_uploads_file_with_the_option() {
         filesPage.uploadFile.sendKeys(ConfigurationReader.getProperty("filePath"));
+        BrowserUtils.sleep(3);
+
     }
 
     @Then("verify file is displayed on the page")
     public void verify_file_is_displayed_on_the_page() {
         filesPage.addedFileIsDisplayed();
     }
+
 
     @Given("user is on the home page")
     public void user_is_on_the_home_page() {
@@ -316,6 +319,7 @@ public class Meetsky_StepDefinitions {
         Assert.assertTrue(filesPage.checkBoxesIsEnable());
     }
 
+
     @When("user click new folder")
     public void user_click_new_folder() {
         filesPage.NewFolder.click();
@@ -339,4 +343,28 @@ public class Meetsky_StepDefinitions {
         String expected = "Saja Folder";
         Assert.assertTrue(expected, filesPage.SelectFiles.isDisplayed());
     }
+
+    @Then("verify the page title is as given {string}")
+    public void verify_the_page_title_is_as_given(String expectedTitleFilePage) {
+        BrowserUtils.verifyTitle(expectedTitleFilePage);
+    }
+
+    @When("user click the top-left checkbox of the table")
+    public void user_click_the_top_left_checkbox_of_the_table() {
+        filesPage.selectAllFilesBox.click();
+
+    }
+    @Then("verify all the files are selected")
+    public void verify_all_the_files_are_selected() {
+
+        List<String> selectedFiles = new ArrayList<>();
+
+        for (WebElement each : filesPage.allFilesAndFoldersRowsElements){
+           selectedFiles.add(each.getAttribute("class"));
+        }
+
+        Assert.assertTrue(selectedFiles.contains("selected"));
+
+    }
+
 }
